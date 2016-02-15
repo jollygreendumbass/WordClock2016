@@ -1,3 +1,5 @@
+//Good as of Feb 14 at 1:13 - Last thing to do is figure out the buttons
+
 
 // Date and time functions using a DS1307 RTC connected via I2C and Wire lib
 
@@ -363,20 +365,22 @@ void loop () {
   
   /* Light pixels corresponding to current time */
   for (int i=0; i<sizeof(individualPixels); i++){
-    if ((h>5 && h<20)) 
-        if (individualPixels[i]==1){
+    if ((now.hour()>5 && now.hour()<18)) 
+        {if (individualPixels[i]==1){
           pixels.setPixelColor(i, pixels.Color(15,75,90)); //Set Neopixel color day
         }
         else{
           pixels.setPixelColor(i,pixels.Color(0,0,0));
         }
-    else 
+        }
+    else { 
       if (individualPixels[i]==1){
           pixels.setPixelColor(i, pixels.Color(30,60,75)); //Set Neopixel color night
         }
         else{
           pixels.setPixelColor(i,pixels.Color(0,0,0));
-        }        
+        } 
+    }           
   }
   
   pixels.show(); //Display Neopixel color
