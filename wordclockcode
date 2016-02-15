@@ -1,3 +1,5 @@
+//Good as of Feb 14 at 1:13 - Last thing to do is figure out the buttons
+
 
 // Date and time functions using a DS1307 RTC connected via I2C and Wire lib
 
@@ -105,7 +107,7 @@ void loop () {
   minusCurrState=digitalRead(MINUSFIVEMINS); //Get current state of MINUSFIVEMINS button
   /* If current state is different from previous state and value is now LOW, subtract five minutes from current time */
   if ((minusCurrState!=minusPrevState) && (minusCurrState==LOW)){
-    RTC.adjust(-5*60); //Shift time five minutes backwards
+    RTC.adjust(now + TimeSpan(5 * 60)); //Shift time five minutes backwards
     minusPrevState=minusCurrState;
   }
   else{
@@ -115,7 +117,7 @@ void loop () {
   plusCurrState=digitalRead(PLUSFIVEMINS); //Get current state of PLUSFIVEMINS button
   /* If current state is different from previous state and value is now LOW, add five minutes from current time */
   if ((plusCurrState!=plusPrevState) && (plusCurrState==LOW)){
-    RTC.adjust(5*60); //Shift time five minutes forwards
+    RTC.adjust(now - TimeSpan(5 * 60)); //Shift time five minutes forwards
     plusPrevState=plusCurrState;
   }
     else{
@@ -373,7 +375,7 @@ void loop () {
         }
     else { 
       if (individualPixels[i]==1){
-          pixels.setPixelColor(i, pixels.Color(30,60,75)); //Set Neopixel color night
+          pixels.setPixelColor(i, pixels.Color(0,0,2)); //Set Neopixel color night
         }
         else{
           pixels.setPixelColor(i,pixels.Color(0,0,0));
